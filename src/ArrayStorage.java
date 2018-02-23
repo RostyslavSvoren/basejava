@@ -26,7 +26,6 @@ public class ArrayStorage {
 
 
     Resume get(String uuid) {
-
         for (int i = 0; i < storage.length; i++) {
             if (null != storage[i] && uuid.equals(storage[i].uuid)) {
                 return storage[i];
@@ -37,7 +36,6 @@ public class ArrayStorage {
 
 
     void delete(String uuid) {
-
         for (int i = 0; i < storage.length; i++) {
             if (null != storage[i] && uuid.equals(storage[i].uuid)) {
                 storage[i] = null;
@@ -53,7 +51,6 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-
         return Arrays.copyOfRange(storage, 0, count);
     }
 
