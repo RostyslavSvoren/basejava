@@ -75,27 +75,24 @@ public class ArrayStorage {
      */
     Resume[] getAll() {
 
-        int count = 0;
+//        int count = size();
+//
+//        Resume[] r = new Resume[count];
+//
+//        int j = 0;
+//
+//        for (int i = 0; i < storage.length; i++) {
+//            if (null != storage[i] && j < r.length) {
+//                r[j] = storage[i];
+//                j++;
+//            } else {
+//                break;
+//            }
+//        }
+//
+//        return r;
 
-        for (int i = 0; i < storage.length; i++) {
-            if (null != storage[i]) count++;
-            else break;
-        }
-
-        Resume[] r = new Resume[count];
-
-        int j = 0;
-
-        for (int i = 0; i < storage.length; i++) {
-            if (null != storage[i] && j < r.length) {
-                r[j] = storage[i];
-                j++;
-            } else {
-                break;
-            }
-        }
-
-        return r;
+        return  Arrays.copyOfRange(storage, 0, size());
     }
 
 
