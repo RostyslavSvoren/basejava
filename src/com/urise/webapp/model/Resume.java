@@ -1,10 +1,20 @@
+package com.urise.webapp.model;
+
 /**
- * com.urise.webapp.model.Resume class
+ * com.urise.webapp.model.com.urise.webapp.model.Resume class
  */
 public class Resume implements Comparable<Resume> {
 
     // Unique identifier
-    String uuid;
+    private String uuid;
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
     @Override
     public String toString() {
@@ -13,7 +23,7 @@ public class Resume implements Comparable<Resume> {
 
     @Override
     public int compareTo(Resume o) {
-        if (this.uuid == o.uuid)
+        if (this.uuid.equals(o.uuid))
             return 0;
 
         if (this.uuid == null) {
