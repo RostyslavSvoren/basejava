@@ -12,21 +12,23 @@ public class ArrayStorage {
     private int count = 0;
 
     public void clear() {
-        Arrays.fill(storage, null);
+        Arrays.fill(storage, 0, count, null);
         count = 0;
     }
 
 
     public void save(Resume resume) {
-        if(null == storage[count] && count < storage.length){
-                storage[count] = resume;
-                count++;
+        if (null == storage[count] && count < storage.length) {
+            storage[count] = resume;
+            count++;
         }
     }
 
-   public void update(Resume resume){
-        for (int i = 0; i < storage.length; i++) {
-            if(storage[i].getUuid().equals(resume.getUuid())){
+    public void update(Resume resume) {
+        for (int i = 0; i < count; i++) {
+            if (storage[i].getUuid().equals(resume.getUuid())) {
+                //Update method test
+                resume.setUuid("testUuid");
                 storage[i] = resume;
             }
         }
@@ -35,7 +37,7 @@ public class ArrayStorage {
 
     public Resume get(String uuid) {
         for (int i = 0; i < count; i++) {
-            if (null != storage[i] && uuid.equals(storage[i].getUuid())) {
+            if (uuid.equals(storage[i].getUuid())) {
                 return storage[i];
             }
         }
@@ -45,10 +47,10 @@ public class ArrayStorage {
 
     public void delete(String uuid) {
         for (int i = 0; i < count; i++) {
-            if (null != storage[i] && uuid.equals(storage[i].getUuid())) {
-                storage[i] = storage[count-1];
-                storage[count-1] = null;
+            if (uuid.equals(storage[i].getUuid())) {
                 count--;
+                storage[i] = storage[count];
+                storage[count] = null;
                 break;
             }
         }
