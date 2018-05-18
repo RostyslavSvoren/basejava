@@ -3,7 +3,7 @@ package com.urise.webapp.model;
 /**
  * com.urise.webapp.model.com.urise.webapp.model.Resume class
  */
-public class Resume implements Comparable<Resume> {
+public class Resume {
 
     // Unique identifier
     private String uuid;
@@ -21,18 +21,4 @@ public class Resume implements Comparable<Resume> {
         return uuid;
     }
 
-    @Override
-    public int compareTo(Resume o) {
-        if (this.uuid.equals(o.uuid))
-            return 0;
-
-        if (this.uuid == null) {
-            return -1;
-        }
-        if (o.uuid == null) {
-            return 1;
-        }
-
-        return this.uuid.compareTo(o.uuid);
-    }
 }
