@@ -18,41 +18,47 @@ public class ArrayStorage {
 
 
     public void save(Resume resume) {
-        if (null == storage[count] && count < storage.length) {
-            storage[count] = resume;
-            count++;
+        int index = getIndex(resume.getUuid());
+        if (index == -1) {
+            if (count < storage.length) {
+                storage[count] = resume;
+                count++;
+            } else {
+                System.out.println("The resume is not saved, the archive is full!");
+            }
+        } else {
+            System.out.println("The archive already contains this resume!");
         }
     }
 
     public void update(Resume resume) {
-        for (int i = 0; i < count; i++) {
-            if (storage[i].getUuid().equals(resume.getUuid())) {
-                //Update method test
-                resume.setUuid("testUuid");
-                storage[i] = resume;
-            }
+        int index = getIndex(resume.getUuid());
+        if (index != -1) {
+            storage[index] = resume;
+        } else {
+            System.out.println("This resume is not in the archive!");
         }
     }
 
 
     public Resume get(String uuid) {
-        for (int i = 0; i < count; i++) {
-            if (uuid.equals(storage[i].getUuid())) {
-                return storage[i];
-            }
+        int index = getIndex(uuid);
+        if (index != -1) {
+            return storage[index];
         }
+        System.out.println("This resume is not in the archive!");
         return null;
     }
 
 
     public void delete(String uuid) {
-        for (int i = 0; i < count; i++) {
-            if (uuid.equals(storage[i].getUuid())) {
-                count--;
-                storage[i] = storage[count];
-                storage[count] = null;
-                break;
-            }
+        int index = getIndex(uuid);
+        if (index != -1) {
+            count--;
+            storage[index] = storage[count];
+            storage[count] = null;
+        } else {
+            System.out.println("This resume is not in the archive!");
         }
     }
 
@@ -61,11 +67,20 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     public Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, count);
+        return Arrays.copyOf(storage, count);
     }
 
 
     public int size() {
         return count;
+    }
+
+    private  int getIndex(String uuid) {
+        for (int i = 0; i < count; i++) {
+            if (uuid.equals(storage[i].getUuid())) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
