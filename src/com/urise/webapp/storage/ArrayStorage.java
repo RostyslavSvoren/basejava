@@ -7,8 +7,9 @@ import java.util.Arrays;
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage {
-    private Resume[] storage = new Resume[10000];
+public class ArrayStorage implements Storage{
+    private static final int STORAGE_LIMIT = 10000;
+    private Resume[] storage = new Resume[STORAGE_LIMIT];
     private int count = 0;
 
     public void clear() {
@@ -20,7 +21,7 @@ public class ArrayStorage {
     public void save(Resume resume) {
         if (getIndex(resume.getUuid()) != -1) {
             System.out.println("The archive already contains this resume!");
-        } else if (count == storage.length) {
+        } else if (count >= storage.length) {
             System.out.println("The resume is not saved, the archive is full!");
         } else {
             storage[count] = resume;
