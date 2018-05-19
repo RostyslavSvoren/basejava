@@ -18,16 +18,13 @@ public class ArrayStorage {
 
 
     public void save(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index == -1) {
-            if (count < storage.length) {
-                storage[count] = resume;
-                count++;
-            } else {
-                System.out.println("The resume is not saved, the archive is full!");
-            }
-        } else {
+        if (getIndex(resume.getUuid()) != -1) {
             System.out.println("The archive already contains this resume!");
+        } else if (count == storage.length) {
+            System.out.println("The resume is not saved, the archive is full!");
+        } else {
+            storage[count] = resume;
+            count++;
         }
     }
 
@@ -75,7 +72,7 @@ public class ArrayStorage {
         return count;
     }
 
-    private  int getIndex(String uuid) {
+    private int getIndex(String uuid) {
         for (int i = 0; i < count; i++) {
             if (uuid.equals(storage[i].getUuid())) {
                 return i;
