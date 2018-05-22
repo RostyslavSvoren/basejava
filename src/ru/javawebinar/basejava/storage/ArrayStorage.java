@@ -7,25 +7,20 @@ import java.util.Arrays;
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage implements Storage{
-    private static final int STORAGE_LIMIT = 10000;
-    private Resume[] storage = new Resume[STORAGE_LIMIT];
-    private int count = 0;
-
+public class ArrayStorage extends AbstractArrayStorage {
     public void clear() {
-        Arrays.fill(storage, 0, count, null);
-        count = 0;
+        Arrays.fill(storage, 0, size, null);
+        size = 0;
     }
-
 
     public void save(Resume resume) {
         if (getIndex(resume.getUuid()) != -1) {
             System.out.println("The archive already contains this resume!");
-        } else if (count >= storage.length) {
+        } else if (size >= storage.length) {
             System.out.println("The resume is not saved, the archive is full!");
         } else {
-            storage[count] = resume;
-            count++;
+            storage[size] = resume;
+            size++;
         }
     }
 
@@ -52,9 +47,9 @@ public class ArrayStorage implements Storage{
     public void delete(String uuid) {
         int index = getIndex(uuid);
         if (index != -1) {
-            count--;
-            storage[index] = storage[count];
-            storage[count] = null;
+            size--;
+            storage[index] = storage[size];
+            storage[size] = null;
         } else {
             System.out.println("This resume is not in the archive!");
         }
@@ -65,16 +60,16 @@ public class ArrayStorage implements Storage{
      * @return array, contains only Resumes in storage (without null)
      */
     public Resume[] getAll() {
-        return Arrays.copyOf(storage, count);
+        return Arrays.copyOf(storage, size);
     }
 
 
     public int size() {
-        return count;
+        return size;
     }
 
-    private int getIndex(String uuid) {
-        for (int i = 0; i < count; i++) {
+    protected int getIndex(String uuid) {
+        for (int i = 0; i < size; i++) {
             if (uuid.equals(storage[i].getUuid())) {
                 return i;
             }
